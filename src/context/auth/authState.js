@@ -5,7 +5,13 @@ import authReducer from './AuthReducer';
 import AuthContext from './AuthContext';
 
 // types
-import { REGISERT_USER, REGISTER_ERROR } from './../types';
+import {
+  REGISERT_USER,
+  REGISTER_ERROR,
+  LOGIN_USER,
+  LOGIN_FAIL,
+  GET_USER  
+} from './../types';
 
 const AuthState = ({ children }) => {
   // creation state
@@ -20,6 +26,58 @@ const AuthState = ({ children }) => {
   // creation reducer
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+
+
+
+  // Get authenticated User
+  const loadUser = async() => {
+    try {
+      const config = {
+        headers:{
+          'Content-Type': 'application/json',
+          'x-auth-token':localStorage.getItem('token')
+        }
+      }
+        const res = await axios.get('/api/auth',config)
+        dispatch({
+          type: GET_USER,
+          payload:res.data
+        })
+    } catch (error) {
+
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: error.response.data.msg,
+      });
+      
+    }
+  }
+
+  // login
+  //  formData ={ email :"ayoub@gmail.com", password:"12345"}
+  const login = async (formData) => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const response = await axios.post(`/api/auth`, formData, config);
+
+      dispatch({
+        type: LOGIN_USER,
+        payload: response.data.token,
+      });
+    } catch (error) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: error.response.data.msg,
+      });
+    }
+  };
+
+  // register user into database
   const register = async (data) => {
     try {
       const config = {
@@ -39,6 +97,9 @@ const AuthState = ({ children }) => {
       });
     }
   };
+
+
+
   return (
     <AuthContext.Provider
       value={{
@@ -48,6 +109,8 @@ const AuthState = ({ children }) => {
         error: state.error,
         token: state.token,
         register,
+        login,
+        loadUser
       }}
     >
       {children}

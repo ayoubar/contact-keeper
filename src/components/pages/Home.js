@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ContacFilter from "../contact/ContactFilter";
 import ContactForm from "./../contact/ContactForm";
 import Contacts from "./../contact/Contacts";
@@ -7,8 +7,13 @@ import AuthContext from './../../context/auth/AuthContext';
 
 function Home() {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated } = authContext;
+  const { isAuthenticated, loadUser } = authContext;
 
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  
   if (isAuthenticated === null) {
     return <Redirect to="/login" />;
   }

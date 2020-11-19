@@ -1,7 +1,14 @@
+import { useContext } from 'react';
 import Navigation from "./Navigation";
+import AuthContext from './../../../context/auth/AuthContext';
 import "./../../../NavBar.css";
 
 const NavBar = () => {
+  // create auth context variable
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, user } = authContext;
+
   return (
     <nav class="navbar navbar-expand-lg navbar-dark indigo">
       <a class="navbar-brand" href="#">
@@ -20,7 +27,7 @@ const NavBar = () => {
       </button>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <Navigation></Navigation>
+        <Navigation isConnected={isAuthenticated} user={user}></Navigation>
       </div>
     </nav>
   );
