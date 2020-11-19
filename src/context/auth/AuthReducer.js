@@ -6,6 +6,7 @@ const authReducer = (state, action) => {
       return {
         ...state,
         token: action.payload,
+        isAuthenticated: true,
         error: null,
       };
     case REGISTER_ERROR:

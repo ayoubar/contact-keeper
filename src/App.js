@@ -10,17 +10,18 @@ import AuthState from './context/auth/authState';
 
 function App() {
   return (
+    // Wrapper
     <AuthState>
-        <BrowserRouter>
-          <div className="App">
-            <NavBar />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-            </Switch>
-          </div>
-        </BrowserRouter>
+      <BrowserRouter>
+        <div className="App">
+          <NavBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     </AuthState>
   );
 }

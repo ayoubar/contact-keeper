@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-
+import { Redirect } from 'react-router-dom'
 import AuthContext from './../../context/auth/AuthContext'
+import Alert from '../UI/Alert';
 
 export default function Register() {
   
   // create auth context variable
   const authContext = useContext(AuthContext)
-  const { register:RegisterUser } = authContext
+  const { register: RegisterUser, error, token } = authContext;
 
   const [register, setRegister] = useState({
     name:'',
@@ -20,7 +21,11 @@ export default function Register() {
   
 
   const handleChange = (e) => {
-      setRegister({...register, [e.target.name]: e.target.value})
+    setRegister({ ...register, [e.target.name]: e.target.value });
+  };
+
+  if (error) {
+    console.log(error.data);
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +43,15 @@ export default function Register() {
      }
     }
   };
+
+  
+  if(token) {
+      return <Redirect to='/' />
+  }
+
   return (
+    <>
+   {error ? <Alert error={error.msg} /> : null } 
     <div className="container mt-5">
       <form
         class="text-center border border-light p-5"
@@ -86,5 +99,7 @@ export default function Register() {
         </button>
       </form>
     </div>
+
+    </>
   );
 }

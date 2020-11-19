@@ -5,7 +5,6 @@ import authReducer from './AuthReducer';
 import AuthContext from './AuthContext';
 
 // types
-
 import { REGISERT_USER, REGISTER_ERROR } from './../types';
 
 const AuthState = ({ children }) => {
@@ -36,7 +35,7 @@ const AuthState = ({ children }) => {
     } catch (error) {
       dispatch({
         type: REGISTER_ERROR,
-        payload: error.response,
+        payload: error.response.data,
       });
     }
   };

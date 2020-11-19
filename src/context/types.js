@@ -1,2 +1,3 @@
 export const REGISERT_USER = 'REGISTER_USER';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
+export const GET_CONTATCS = 'GET_CONTACTS';

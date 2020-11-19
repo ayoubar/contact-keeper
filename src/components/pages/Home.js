@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from 'react';
 import ContacFilter from "../contact/ContactFilter";
 import ContactForm from "./../contact/ContactForm";
 import Contacts from "./../contact/Contacts";
-export default function home() {
+import { Redirect } from 'react-router-dom';
+import AuthContext from './../../context/auth/AuthContext';
+
+function Home() {
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
+
+  if (isAuthenticated === null) {
+    return <Redirect to="/login" />;
+  }
   return (
     <div class="container mt-5">
       <div class="row">
@@ -17,3 +26,6 @@ export default function home() {
     </div>
   );
 }
+
+
+export default Home;
