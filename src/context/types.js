@@ -4,3 +4,4 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const GET_USER = 'GET_USER';
 export const GET_CONTATCS = 'GET_CONTACTS';
+export const ADD_CONTACT = 'ADD_CONTACT';

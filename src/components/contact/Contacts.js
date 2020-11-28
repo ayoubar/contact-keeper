@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect } from 'react';
+import ContactContext from './../../context/contact/contactContext';
+
 import ContactItem from "./ContactItem";
-const t = [1, 2, 3];
+//
 export default function Contacts() {
+  const contactContext = useContext(ContactContext);
+
+  const { contacts, getAllContacts } = contactContext;
+
+  useEffect(() => {
+    getAllContacts();
+  }, []);
+
   return (
     <div>
-      {t.map((e) => (
-        <ContactItem />
-      ))}
+      {contacts && contacts.map((contact) => <ContactItem contact={contact} />)}
     </div>
   );
 }
